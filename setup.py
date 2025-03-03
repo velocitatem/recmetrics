@@ -21,7 +21,7 @@ setup(
         'pandas',
         'plotly',
         'scikit-learn',
-        'seaborn',
+        'seaborn>=0.12.0',
         'matplotlib>=3.3.2'],
     license='MIT',
     version='0.1.5',
