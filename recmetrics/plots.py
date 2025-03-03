@@ -57,7 +57,7 @@ def long_tail_plot(df, item_id_column, interaction_type, percentage=None, x_labe
         plt.axvline(x=items_in_head, color="red",  linestyle='--')
 
         # fill area under plot
-        head = head.append(tail.head(1))
+        head = pd.concat([head, tail.head(1)])
         x1 = head.index.values
         y1 = head['volume']
         x2 = tail.index.values
@@ -264,7 +264,7 @@ def class_separation_plot(pred_df, n_bins=150, threshold=None, figsize=(10,6), t
     plt.figure(figsize=figsize)
     for i in range(len(classes)):
         single_class = classes[i]
-        sns.distplot( pred_df.query("truth == @single_class")["predicted"] , bins=n_bins, color=recommender_palette[i], label="True {}".format(single_class))
+        sns.histplot(pred_df.query("truth == @single_class")["predicted"], bins=n_bins, color=recommender_palette[i], kde=True, stat="density", label="True {}".format(single_class))
     plt.legend()
     if threshold == None: pass
     else: plt.axvline(threshold, color="black", linestyle='--')
